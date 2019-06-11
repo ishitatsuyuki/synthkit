@@ -19,7 +19,7 @@ use crate::*;
 /// when no sample streams are available.
 pub struct Mixer<'a> {
     /// Active iterators for streams.
-    streams: Vec<Samples<'a>>,
+    streams: Vec<Box<Samples<'a>>>,
     /// Current mixer gain value.
     gain: f32,
 }
@@ -36,7 +36,7 @@ impl<'a> Mixer<'a> {
     }
 
     /// New mixer with initial streams.
-    pub fn with_streams(streams: Vec<Samples<'a>>) -> Self {
+    pub fn with_streams(streams: Vec<Box<Samples<'a>>>) -> Self {
         let mut mixer = Self::new();
         for st in streams {
             mixer.add(st);
@@ -45,7 +45,7 @@ impl<'a> Mixer<'a> {
     }
 
     /// Add a stream to the mixer.
-    pub fn add(&mut self, st: Samples<'a>) {
+    pub fn add(&mut self, st: Box<Samples<'a>>) {
         self.streams.push(st);
         self.agc();
     }

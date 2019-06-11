@@ -14,9 +14,9 @@ fn main() {
     let third = root * f32::powf(2.0, 4.0 / 12.0);
     let octaves_down = root / 4.0;
     let mixer = Box::new(Mixer::with_streams(vec![
-        sloop.iter(root),
-        sloop.iter(third),
-        sloop.iter(octaves_down),
+        Box::new(sloop.iter(root).clone()),
+        Box::new(sloop.iter(third).clone()),
+        Box::new(sloop.iter(octaves_down).clone()),
     ]));
     play(mixer).unwrap();
 }
