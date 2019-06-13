@@ -24,7 +24,7 @@ pub fn play(mut samples: Stream) -> Result<(), Box<Error>> {
     let target_rate = cpal::SampleRate(SAMPLE_RATE as u32);
     let has_format = device
         .supported_output_formats()?
-        .find(|&f| {
+        .find(|f| {
             f.channels == 1 &&
                 f.min_sample_rate <= target_rate &&
                 f.max_sample_rate >= target_rate &&
